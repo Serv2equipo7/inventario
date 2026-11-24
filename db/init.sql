@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS equipos (
     marca           VARCHAR(50)  NOT NULL,
     numero_serie    VARCHAR(50)  NOT NULL UNIQUE,
     ubicacion       VARCHAR(100) NOT NULL,
-    estado          ENUM('Disponible','No disponible','Baja') NOT NULL DEFAULT 'Activo',
+    estado          ENUM('Disponible','No disponible','Baja') NOT NULL DEFAULT 'Disponible',
     fecha_registro  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
