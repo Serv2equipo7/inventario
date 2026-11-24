@@ -3,48 +3,282 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Inventario Tecnológico</title>
+  <title>Búho Papelería · Inventario</title>
   <style>
-    :root { --azul: #0f766e; --dorado: #5eead4; --gris: #f0fdfa; --borde: #99f6e4; }
+    :root {
+      --bg: #faf9f6;
+      --surface: #ffffff;
+      --text: #1c1917;
+      --muted: #78716c;
+      --border: #e7e5e4;
+      --accent: #292524;
+      --accent-hover: #44403c;
+      --brand: #d97706;
+      --danger: #dc2626;
+    }
+
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: Calibri, "Segoe UI", Arial, sans-serif; background: var(--gris); color: #111827; }
-    header { background: var(--azul); color: #fff; padding: 16px 24px; border-bottom: 5px solid var(--dorado); }
-    header h1 { margin: 0; font-size: 1.5rem; }
-    header p { margin: 4px 0 0; opacity: .85; font-size: .95rem; }
-    main { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
-    .tarjeta { background: #fff; border: 1px solid var(--borde); border-radius: 8px; padding: 20px; }
-    .barra { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 12px; flex-wrap: wrap; }
-    table { width: 100%; border-collapse: collapse; font-size: .95rem; }
-    th, td { padding: 9px 10px; border-bottom: 1px solid var(--borde); text-align: left; }
-    th { background: #e5e7eb; }
-    .btn { display: inline-block; padding: 8px 14px; border-radius: 6px; border: 0; background: var(--azul); color: #fff; text-decoration: none; cursor: pointer; font-size: .9rem; }
-    .btn.sec { background: #6b7280; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 24px;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      background: var(--brand);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    header p {
+      margin: 0;
+      font-size: 0.82rem;
+      color: var(--muted);
+      background: #f5f5f4;
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-weight: 500;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 32px auto;
+      padding: 0 20px;
+    }
+
+    .tarjeta {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 1px 2px rgba(28, 25, 23, 0.03);
+    }
+
+    .barra {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .barra h2, .barra h3 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .tabla-scroll {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: #fafaf9; }
+
+    th {
+      background: #fafaf9;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: var(--accent);
+      color: #ffffff;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .btn:hover { background: var(--accent-hover); }
+
+    .btn.sec {
+      background: var(--surface);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .btn.sec:hover { background: #f5f5f4; }
+
     button.btn { font-family: inherit; line-height: inherit; }
-    .btn.peligro { background: #b91c1c; }
-    .btn.chico { padding: 5px 10px; font-size: .85rem; }
+
+    .btn.peligro {
+      background: #fef2f2;
+      color: var(--danger);
+      border-color: #fecaca;
+    }
+
+    .btn.peligro:hover {
+      background: var(--danger);
+      color: #ffffff;
+      border-color: var(--danger);
+    }
+
+    .btn.chico {
+      padding: 5px 10px;
+      font-size: 0.8rem;
+      border-radius: 6px;
+    }
+
     .acciones { display: flex; gap: 6px; align-items: center; }
     .acciones form { margin: 0; }
-    .estado { padding: 2px 8px; border-radius: 999px; font-size: .85rem; }
-    .Activo { background: #dcfce7; color: #166534; }
-    .En { background: #fef3c7; color: #92400e; }
-    .Baja { background: #fee2e2; color: #991b1b; }
-    .Operativo { background: #dcfce7; color: #166534; }
-    .Fuera { background: #fee2e2; color: #991b1b; }
-    .msg { padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; }
-    .msg.ok { background: #dcfce7; color: #166534; }
-    .msg.error { background: #fee2e2; color: #991b1b; }
-    form .campo { margin-bottom: 14px; }
-    form label { display: block; font-weight: bold; margin-bottom: 4px; }
-    form input, form select { width: 100%; padding: 8px; border: 1px solid var(--borde); border-radius: 6px; font-size: 1rem; }
-    footer { text-align: center; font-size: .85rem; color: #6b7280; margin: 24px 0; }
-    code { background: #e5e7eb; padding: 1px 5px; border-radius: 4px; }
-    .tabla-scroll { overflow-x: auto; }
+
+    .estado {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .estado::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .Activo, .Operativo, .Disponible { background: #ecfdf5; color: #065f46; }
+    .En, .Por.agotarse, .Bajo { background: #fffbeb; color: #92400e; }
+    .Baja, .Fuera, .Agotado { background: #fef2f2; color: #991b1b; }
+
+    .msg {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 18px;
+      font-size: 0.9rem;
+      border: 1px solid transparent;
+    }
+
+    .msg.ok { background: #ecfdf5; color: #065f46; border-color: #a7f3d0; }
+    .msg.error { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
+
+    form .campo { margin-bottom: 16px; }
+
+    form label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #44403c;
+      margin-bottom: 6px;
+    }
+
+    form input, form select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-family: inherit;
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    form input:focus, form select:focus {
+      outline: none;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.12);
+    }
+
+    footer {
+      max-width: 1100px;
+      margin: 36px auto 24px;
+      padding: 16px 20px 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      background: #f5f5f4;
+      color: var(--text);
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-size: 0.78rem;
+      border: 1px solid var(--border);
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>Sistema de Inventario Tecnológico</h1>
-    <p>{{ organizacion }} · Servidores II</p>
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <h1>Búho Papelería · Control de Inventario</h1>
+      </div>
+      <p>Artículos escolares y de oficina · {{ organizacion }}</p>
+    </div>
   </header>
   <main>
     {% with mensajes = get_flashed_messages(with_categories=true) %}
@@ -55,7 +289,8 @@
     {% block contenido %}{% endblock %}
   </main>
   <footer>
-    Atendido por el contenedor <code>{{ contenedor }}</code> · Base de datos en el servicio <code>{{ db_host }}</code>
+    <span>Búho Papelería · Nodo <code>{{ contenedor }}</code></span>
+    <span>Base de datos: <code>{{ db_host }}</code></span>
   </footer>
 </body>
 </html>

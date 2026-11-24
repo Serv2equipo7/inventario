@@ -1,38 +1,43 @@
 {% extends "base.html" %}
 {% block contenido %}
-<div class="tarjeta" style="max-width:600px;margin:auto">
-  <h2 style="margin-top:0">{{ titulo }}</h2>
+<div class="tarjeta" style="max-width:560px; margin:auto">
+  <div style="margin-bottom:20px; border-bottom:1px solid var(--border); padding-bottom:12px;">
+    <h2 style="margin:0; font-size:1.1rem;">{{ titulo }}</h2>
+    <p style="margin:4px 0 0; font-size:0.83rem; color:var(--muted);">Completa los datos del producto de papelería</p>
+  </div>
   <form method="post">
     <div class="campo">
-      <label for="nombre">Nombre del equipo</label>
-      <input id="nombre" name="nombre" maxlength="100" value="{{ equipo.nombre or '' }}" required>
+      <label for="nombre">Nombre del artículo</label>
+      <input id="nombre" name="nombre" maxlength="100" placeholder="Ej. Cuaderno profesional raya 100 hojas" value="{{ equipo.nombre or '' }}" required>
     </div>
     <div class="campo">
-      <label for="tipo">Tipo</label>
+      <label for="tipo">Categoría</label>
       <select id="tipo" name="tipo" required>
         {% for t in tipos %}<option {% if equipo.tipo == t %}selected{% endif %}>{{ t }}</option>{% endfor %}
       </select>
     </div>
     <div class="campo">
       <label for="marca">Marca</label>
-      <input id="marca" name="marca" maxlength="50" value="{{ equipo.marca or '' }}" required>
+      <input id="marca" name="marca" maxlength="50" placeholder="Ej. Norma, BIC, Paper Mate, Scribe, Prismacolor" value="{{ equipo.marca or '' }}" required>
     </div>
     <div class="campo">
-      <label for="numero_serie">Número de serie</label>
-      <input id="numero_serie" name="numero_serie" maxlength="50" value="{{ equipo.numero_serie or '' }}" required>
+      <label for="numero_serie">Código de barras / SKU</label>
+      <input id="numero_serie" name="numero_serie" maxlength="50" placeholder="Ej. PAP-CUA-001" value="{{ equipo.numero_serie or '' }}" required>
     </div>
     <div class="campo">
-      <label for="ubicacion">Ubicación</label>
-      <input id="ubicacion" name="ubicacion" maxlength="100" value="{{ equipo.ubicacion or '' }}" required>
+      <label for="ubicacion">Ubicación en tienda / bodega</label>
+      <input id="ubicacion" name="ubicacion" maxlength="100" placeholder="Ej. Vitrina principal, Estante B2, Cajón plumas" value="{{ equipo.ubicacion or '' }}" required>
     </div>
     <div class="campo">
-      <label for="estado">Estado</label>
+      <label for="estado">Estado de inventario</label>
       <select id="estado" name="estado" required>
         {% for s in estados %}<option {% if equipo.estado == s %}selected{% endif %}>{{ s }}</option>{% endfor %}
       </select>
     </div>
-    <button class="btn" type="submit">Guardar</button>
-    <a class="btn sec" href="{{ url_for('inicio') }}">Cancelar</a>
+    <div style="display:flex; gap:10px; margin-top:22px;">
+      <button class="btn" type="submit">Guardar artículo</button>
+      <a class="btn sec" href="{{ url_for('inicio') }}">Cancelar</a>
+    </div>
   </form>
 </div>
 {% endblock %}
