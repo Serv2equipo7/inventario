@@ -8,7 +8,7 @@ Sistema web contenerizado para el control de inventario de **Búho Papelería**,
 
 ## Guía para recrear el sistema
 1. Clonar el repositorio:
-git clone <URL_DEL_REPOSITORIO>
+git clone https://github.com/Serv2equipo7/inventario.git
    cd inventario
 
 2. Crear el archivo de variables de entorno a partir de la plantilla y configurar las contraseñas:
